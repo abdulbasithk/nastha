@@ -29,29 +29,19 @@ export default function Dashboard() {
         setPage(activePage - 1)
     }
 
-    const handleSearch = (event, { value }) => {
-        setPage(0)
-        setSearch(value)
-        setLoadingSearch(true)
-        if(value.length < 1) {
-            setLoadingSearch(false)
-            return setData(_.chunk(events), 5)
-        }
-        setTimeout(() => {
-            const re = new RegExp(_.escapeRegExp(value), 'i')
-            const isMatch = (result) => re.test(result.title)
-            setData(_.chunk(_.filter(events, isMatch)), 5)
-            setLoadingSearch(false)
-          }, 300)
-    }
+    useEffect(() => {
+        const results = events.filter(events => events.title.toLowerCase().includes(search.toLowerCase().trim()));
+        setData(_.chunk(results, 5));
+    }, [search])
+
     return (
         <div className="container mt-4">
-            <Search
-                    onSearchChange={_.debounce(handleSearch, 1000, { leading: true, trailing: true })}
-                    open={false}
-                    value={search}
-                    loading={loadingSearch}
-                />
+            <input
+                type="text"
+                placeholder="Search"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+            />
             <Table striped celled padded>
                 <Table.Header>
                     <Table.Row>
