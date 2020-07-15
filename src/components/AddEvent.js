@@ -46,7 +46,7 @@ const AddEvent = () => {
         newForm.append('image', event.target.files[0])
         Axios({
             method: "POST",
-            url: "http://localhost:4000/upload",
+            url: "http://13.229.89.149/upload",
             data: newForm
         })
             .then(({data}) => {

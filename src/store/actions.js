@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { NotificationManager } from 'react-notifications'
 
-const serverUrl = "http://localhost:4000";
+const serverUrl = "http://13.229.89.149";
 
 export const setLoading = (payload) => {
     return {
