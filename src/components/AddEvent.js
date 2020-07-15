@@ -23,7 +23,6 @@ const AddEvent = () => {
     // Store statement
 
     const error = useSelector(state => state.reducers.error)
-    const loading = useSelector(state => state.reducers.loading)
 
     const handleChange = (event) => {
         const { name, value } = event.target

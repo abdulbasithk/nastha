@@ -7,7 +7,6 @@ import EventCard from '../components/EventCard'
 export default function Home() {
 
     const events = useSelector(state => state.reducers.events)
-    const loading = useSelector(state => state.reducers.loading)
     const dispatch = useDispatch()
     
     useEffect(() => {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Table, Form, Pagination, Search } from 'semantic-ui-react'
+import { Table, Pagination, Search } from 'semantic-ui-react'
 import { useDispatch, useSelector} from 'react-redux'
-import ReactSearchBox from 'react-search-box'
 
 import { fetchEvents } from '../store/actions'
 
@@ -18,7 +17,6 @@ export default function Dashboard() {
     const [data, setData] = useState([])
     const [search, setSearch] = useState('')
     const [loadingSearch, setLoadingSearch] = useState(false)
-
 
     useEffect(() => {
         if(events.length === 0) {
@@ -41,20 +39,19 @@ export default function Dashboard() {
         }
         setTimeout(() => {
             const re = new RegExp(_.escapeRegExp(value), 'i')
-            const isMatch = (result) => re.test(result.name)
+            const isMatch = (result) => re.test(result.title)
             setData(_.chunk(_.filter(events, isMatch)), 5)
             setLoadingSearch(false)
           }, 300)
     }
     return (
         <div className="container mt-4">
-            <ReactSearchBox
-                placeholder="Search"
-                value="Abdul"
-                onChange={(event, target) => setSearch({target})}
-                data={events}
-                callback={record => setData(record)}
-            />
+            <Search
+                    onSearchChange={_.debounce(handleSearch, 1000, { leading: true, trailing: true })}
+                    open={false}
+                    value={search}
+                    loading={loadingSearch}
+                />
             <Table striped celled padded>
                 <Table.Header>
                     <Table.Row>
