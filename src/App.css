@@ -1,0 +1,11 @@
+body {
+  background-color: #ebeef3 !important;
+}
+.App {
+  text-align: center;
+}
+
+::placeholder {
+  color: black !important;
+  font-weight: bold;
+}
